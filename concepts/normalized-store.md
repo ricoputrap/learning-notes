@@ -1,3 +1,5 @@
+# Normalized Store
+
 Hari ini saya belajar hal baru, yaitu **Normalized Store**. _Store_ di sini merujuk pada objek penyimpanan data di sisi klien (_client-side store_).
 
 #### Apa itu Normalized Store?
