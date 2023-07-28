@@ -65,3 +65,7 @@ SELECT * FROM posts LIMIT 10 OFFSET 10; -- Halaman kedua
 2. Todo List
 3. Photo Gallery
 4. E-commerce Product Listings
+
+#### Source
+
+[GreatFrontEnd: News Feed (e.g. Facebook)](https://www.greatfrontend.com/questions/system-design/news-feed-facebook)
