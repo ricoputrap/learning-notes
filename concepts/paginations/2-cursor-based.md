@@ -50,3 +50,7 @@ Pendekatan ini tidak memungkinkan kita untuk _"loncat"_ atau berpindah ke halama
 1. Social Media Feeds
 2. Chat Applications
 3. Activity Log (sistem yang mencatat aktifitas pengguna dalam aplikasi)
+
+#### Source
+
+[GreatFrontEnd: News Feed (e.g. Facebook)](https://www.greatfrontend.com/questions/system-design/news-feed-facebook)
