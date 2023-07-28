@@ -42,3 +42,7 @@ type Post {
 
 1. Untuk mengurangi data yang duplikat. Contoh, bayangkan ada 100 _posts_ yang dibuat oleh **satu orang**. Jika tidak dinormalisasi, maka akan ada **100 nested objects** untuk data `author` pada 100 objek `Post` yang sebenarnya berisikan data yang sama. Sebaliknya, jika dinormalisasi, maka tidak akan ada **_100 duplicated nested objects_** untuk data `author` tersebut karena sudah disederhanakan menggunakan `authorID` untuk mereferensikan ke data pembuat post tersebut.
 2. Untuk memudahkan kita saat hendak memperbarui (**_update_**) data untuk entitas/tipe yang sama (_misalnya tipe `User` untuk `author` di atas_). Masih menggunakan contoh yang sama seperti pada no 1 di atas. Jika tidak dinormalisasi, maka kita harus melakukan operasi **UPDATE sebanyak 100 kali** untuk memperbarui data pembuat post yang sama. Sebaliknya, jika dinormalisasi, maka **operasi UPDATE hanya perlu dijalankan sekali saja**, yaitu pada objek `User` itu sendiri.
+
+#### Source
+
+[GreatFrontEnd: News Feed (e.g. Facebook)](https://www.greatfrontend.com/questions/system-design/news-feed-facebook)
