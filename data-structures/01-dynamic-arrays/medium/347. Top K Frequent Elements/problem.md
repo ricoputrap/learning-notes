@@ -1,4 +1,4 @@
-# 242. Valid Anagram
+# 347. Top K Frequent Elements
 
 _Level: **Medium**_
 
