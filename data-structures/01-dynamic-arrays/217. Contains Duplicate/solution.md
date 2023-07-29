@@ -1,3 +1,5 @@
+# 217. Contains Duplicate
+
 ## Intuition
 
 Create a hash map and traverse through each number in the array to add those number as the keys in the map. While traversing, check if the number already exists as a key in the map. If so, it means the array contains duplicate.

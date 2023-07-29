@@ -1,3 +1,5 @@
+# 242. Valid Anagram
+
 ## Intuition
 
 Compare the total occurences of each character in `s` and `t`. **True** if the values are **equal**.
