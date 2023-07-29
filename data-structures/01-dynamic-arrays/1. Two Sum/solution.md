@@ -1,3 +1,5 @@
+# 1. Two Sum
+
 ## Intuition:
 
 Create a hash map to store each number as a key and the index as the value. While traversing each number in the array, if the substraction result of `target` to the **current number** exists as a key in the hash map, the current number and the substraction result are the valid two numbers.
