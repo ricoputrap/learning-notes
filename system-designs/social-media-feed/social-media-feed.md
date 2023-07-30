@@ -1,3 +1,12 @@
+##### CHANGELOG
+
+| Version | Date              | Changes                                                                  |
+| ------- | ----------------- | ------------------------------------------------------------------------ |
+| 1.0     | Sun, 30 July 2023 | Doc is created                                                           |
+| 1.1     | Sun, 30 July 2023 | Add a new core feature, more context of the users, and caching mechanism |
+
+---
+
 # Social Media Feed
 
 **Task**: Please make me a system design for a social media feed application that displays a list of feed posts created by the users and they are able to interact with the posts.
@@ -9,14 +18,19 @@
 1. Browse feed containing posts created by the users.
 2. Create a new post.
 3. Like a post.
+4. Displaying new posts created by other users in realtime (_live_).
 
 ### 1.2. What kind of posts are supported?
 
-Currenlty it's only a plain text are supported to be the content of a post.
+Currenlty it's only a **plain text** are supported to be the content of a post.
 
 ### 1.3. What pagination UX should be used for the feed?
 
-Infinite scrolling: more posts will be added when the user reaches the end of their feed (bottom).
+**Infinite scrolling**: more posts will be added when the user reaches the end of their feed (bottom).
+
+### 1.4. What kind of UX should be used for displaying the new posts that are created by other users in realtime?
+
+A **small popup** with a label **"New posts..."** will be displayed on the top of the feed.
 
 ### 1.4. Will the app be used on mobile devices?
 
@@ -24,7 +38,8 @@ Yes.
 
 ### 1.5. Is there any additional information?
 
-This app will be used internally within the company (internal social media).
+This app will be used **internally** within a company (internal social media) of **30 employees**.
+You must be questioning "_**Why does this company want to build such app?**_". This app will be used as a **knowledge sharing tool** to enable employees to share their knowledge in a more relaxed way. This is **asynchronous**, so everyone can interacts anywhere & anytime they want.
 
 ---
 
@@ -120,6 +135,24 @@ The app we're going to develop is a social media feed app. Such app has two char
 Based on the characteristics above, we think the suitable approach is to use **Cursor-based Pagination**.
 
 ---
+
+## 6. Caching
+
+The main data that will be **changed frequently** is the **feed posts**. There will be many posts created in seconds or minutes. The other one, **users data**, seems **won't be changing too frequent**. So, it is a good idea to **cache the users data** in order to reduce the loading time.
+
+There are two ways to cache the users data, either on the **server** or on the **client**.
+
+- **Server**
+  When the **number of users is huge** (like Twitter & Instagram users around the world), it is **more suitable** to cache the users data in the **server**. We can user **in-memory databases** like **Redis** or **Memcached** to cache the users data.
+
+- **Client**
+  Otherwise, when the **number of users is small** (_**30 employees** can be considered as **small** number_), caching the data on the **client** would be more suitable because it is **cheaper** than **allocating extra resource** on the server for caching (i.e. Redis).
+
+In this scenario, this app will be used internally within a company of **30 employees**. So, we will **cache the users data on the client**. Later, when the company is growing, more people are coming, we can move the caching mechanism to the server.
+
+However, it brings us to the 2nd question: "_**How can the browser know if the users data are updated?**_". One of approaches we may use is to set an **expiration time** for the client-side data caching. Maybe **1 hour** is enough to keep using the cached users data. After 1 hour, the client will re-fetch the users data from the server and store the result again on the client.
+
+Based on our design, **cookies** will be the suiteable option for caching users data in **1 hour**.
 
 # References
 
