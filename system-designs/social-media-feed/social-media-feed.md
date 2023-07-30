@@ -4,6 +4,7 @@
 | ------- | ----------------- | ------------------------------------------------------------------------ |
 | 1.0     | Sun, 30 July 2023 | Doc is created                                                           |
 | 1.1     | Sun, 30 July 2023 | Add a new core feature, more context of the users, and caching mechanism |
+| 1.2     | Sun, 30 July 2023 | Add a user interface for the Feed UI                                     |
 
 ---
 
@@ -153,6 +154,12 @@ In this scenario, this app will be used internally within a company of **30 empl
 However, it brings us to the 2nd question: "_**How can the browser know if the users data are updated?**_". One of approaches we may use is to set an **expiration time** for the client-side data caching. Maybe **1 hour** is enough to keep using the cached users data. After 1 hour, the client will re-fetch the users data from the server and store the result again on the client.
 
 Based on our design, **cookies** will be the suiteable option for caching users data in **1 hour**.
+
+## 7. User Interfaces
+
+### 7.1. Feed UI
+
+![Feed UI](feed-ui.png)
 
 # References
 
