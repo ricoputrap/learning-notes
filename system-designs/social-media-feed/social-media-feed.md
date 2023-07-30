@@ -102,11 +102,11 @@ type Post = {
 
 ### 5.2. HTTP API
 
-| Description        | HTTP Method | Path                     | Request Body          |
-| ------------------ | ----------- | ------------------------ | --------------------- | ----------- |
-| Get the feed posts | `GET`       | `/posts`                 |                       |
-| Create a new post  | `POST`      | `/posts`                 | `{ content: string }` |
-| Like/unlike a post | `POST`      | `/posts/<post_id>/likes` | `{ action: "like"     | "unlike" }` |
+| Description        | HTTP Method | Path                     | Request Body                     |     |
+| ------------------ | ----------- | ------------------------ | -------------------------------- | --- |
+| Get the feed posts | `GET`       | `/posts`                 |                                  |     |
+| Create a new post  | `POST`      | `/posts`                 | `{ content: string }`            |     |
+| Like/unlike a post | `POST`      | `/posts/<post_id>/likes` | `{ action: ["like", "unlike"] }` |     |
 
 ### 5.3. Pagination
 
