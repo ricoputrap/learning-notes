@@ -1,10 +1,11 @@
 ##### CHANGELOG
 
-| Version | Date              | Changes                                                                  |
-| ------- | ----------------- | ------------------------------------------------------------------------ |
-| 1.0     | Sun, 30 July 2023 | Doc is created                                                           |
-| 1.1     | Sun, 30 July 2023 | Add a new core feature, more context of the users, and caching mechanism |
-| 1.2     | Sun, 30 July 2023 | Add a user interface for the Feed UI                                     |
+| Version | Date              | Changes                                                                                                                  |
+| ------- | ----------------- | ------------------------------------------------------------------------------------------------------------------------ |
+| 1.0     | Sun, 30 July 2023 | Doc is created                                                                                                           |
+| 1.1     | Sun, 30 July 2023 | Add a new core feature, more context of the users, and caching mechanism                                                 |
+| 1.2     | Sun, 30 July 2023 | Add a user interface for the Feed UI                                                                                     |
+| 1.3     | Wed, 2 Aug 2023   | Add a **8. Development** section to explain about the tech stacks, functional requirements, and list of tasks to be done |
 
 ---
 
@@ -160,6 +161,55 @@ Based on our design, **cookies** will be the suiteable option for caching users 
 ### 7.1. Feed UI
 
 ![Feed UI](feed-ui.png)
+
+## 8. Development
+
+### 8.1. Tech Stacks
+
+For practicing purpose, we will develop this web app using simple tech stacks.
+
+- **Web**: NextJS 13 (Pages & API Routes)
+- **Zustand**: Client State Management
+- **Cookies**: Client-side Caching
+- **SQL DB**: Sqlite + Prisma ORM
+- **NoSQL DB**: Firebase Realtime DB
+- **Images Bucket**: Supabase Storage
+
+### 8.2. Functional Requirements
+
+1. **Browse feed** containing posts (_text-only_) created by the users.
+2. **Create** a new post.
+3. **Like/unlike** a post.
+4. When there is a new post created by other user:
+   1. The browser will be able to catch that event and display a **small popup** with a label **"New posts...** on the **top** of the feed.
+   2. When user clicks on that small popup, **the new posts will be displayed on the top of all previous posts** in the feed.
+5. When user **scroll down** the feed, at some point, the browser will **start re-fetching the next (later/older) posts** to be displayed **after the last post** available in the feed.
+   1. When the re-fetching is **not finished yet**, a small **loading spinner** will be displayed **after the last post** in the feed.
+
+### 8.3. Tasks
+
+#### 8.3.1. Frontend
+
+1. **FeedStore** client store.
+2. **usePostController** custom hook.
+3. **PostAPI** API client.
+4. **PostReaction** component.
+5. **Post** component.
+6. **Button** component.
+7. **PostComposer** component.
+8. **Feed** component.
+9. **PopupNewPosts** component.
+10. **LoadingSpinner** component.
+
+#### 8.3.2. Backend
+
+1. **Get Feed Posts** endpoint.
+2. **Create New Post** endpoint.
+3. **Like/unlike Post** endpoint
+
+#### 8.3.3. DB Seeder
+
+Let's do the simplest. We will explain to ChatGPT about our app, provide the data model, and ask it to create us good dummy data in JSON. So, the only thing we need to do on the source code is only to create a function to store the dummy data in DB using that JSON file created by ChatGPT.
 
 # References
 
