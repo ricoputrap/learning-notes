@@ -190,16 +190,18 @@ For practicing purpose, we will develop this web app using simple tech stacks.
 
 #### 8.3.1. Frontend
 
-1. **FeedStore** client store.
-2. **usePostController** custom hook.
-3. **PostAPI** API client.
-4. **PostReaction** component.
-5. **Post** component.
-6. **Button** component.
-7. **PostComposer** component.
-8. **Feed** component.
-9. **PopupNewPosts** component.
-10. **LoadingSpinner** component.
+- [x] **FeedStore** client store.
+- [x] **useInit** custom hook.
+- [x] **useFeed** custom hook.
+- [x] **usePostComposer** custom hook.
+- [x] **PostAPI** API client.
+- [ ] **PostReaction** component.
+- [x] **Post** component.
+- [x] **Button** component.
+- [x] **PostComposer** component.
+- [ ] **Feed** component.
+- [ ] **PopupNewPosts** component.
+- [ ] **LoadingSpinner** component.
 
 #### 8.3.2. Backend
 
@@ -210,6 +212,10 @@ For practicing purpose, we will develop this web app using simple tech stacks.
 #### 8.3.3. DB Seeder
 
 Let's do the simplest. We will explain to ChatGPT about our app, provide the data model, and ask it to create us good dummy data in JSON. So, the only thing we need to do on the source code is only to create a function to store the dummy data in DB using that JSON file created by ChatGPT.
+
+### 8.4. Deployment
+
+For exploration purpose, this web app will be deployed on Vercel. The result can be accessed on https://sharefree.vercel.app/.
 
 # References
 
