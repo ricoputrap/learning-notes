@@ -65,7 +65,7 @@ Based on the **data gathered** by our research team, **Slack** or other similar 
 ### Component Responsibility
 
 - **Server**: Provides HTTP APIs to **fetch posts** and to **create new feed posts**.
-- **Post Controller**: controls the flow of data within the application and makes network requests to the server. In **React**, may create a **custom hook** like `usePostController()`.
+- **Post Controller**: controls the flow of data within the application and makes network requests to the server. In **React**, may create **custom hook** like `useFeed()` and `usePostComposer`.
 - **Client Store**: Stores data needed across the whole or parts of application like feed posts and users data.
 - **Feed UI**: Displaying a list of feed posts and the UI for composing a new post.
   - **Feed Post**: Displaying a single `Post` component where the text-based content and a button to interact (Like) are being displayed.
