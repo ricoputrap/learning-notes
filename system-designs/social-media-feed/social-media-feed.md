@@ -6,6 +6,8 @@
 | 1.1     | Sun, 30 July 2023 | Add a new core feature, more context of the users, and caching mechanism                                                 |
 | 1.2     | Sun, 30 July 2023 | Add a user interface for the Feed UI                                                                                     |
 | 1.3     | Wed, 2 Aug 2023   | Add a **8. Development** section to explain about the tech stacks, functional requirements, and list of tasks to be done |
+| 1.4     | Wed, 4 Aug 2023   | Add a **8.4 Deployment** section to explain the URL/link where users would be able to access this web app                |
+| 1.5     | Wed, 5 Aug 2023   | Adjust part **1.5** in **1.Requirement Exploration** section and **6. Caching** section based on the changes in **1.5**. |
 
 ---
 
@@ -40,14 +42,25 @@ Yes.
 
 ### 1.5. Is there any additional information?
 
-This app will be used **internally** within a company (internal social media) of **30 employees**.
-You must be questioning "_**Why does this company want to build such app?**_". This app will be used as a **knowledge sharing tool** to enable employees to share their knowledge in a more relaxed way. This is **asynchronous**, so everyone can interacts anywhere & anytime they want.
+This app will be used as an **SaaS for company**. All **data** (posts, replies, etc) will be **stored privately for each company**. So it **won't be shared globally** like other social media apps (Twitter, Facebook, and Instagram).
+
+"_**Why does a company want to use such app?**_".
+This app will be used as a **knowledge sharing tool** to enable employees to share their knowledge in a more relaxed way. This is **asynchronous**, so everyone can interacts anywhere & anytime they want.
+
+_**Why not just using Slack?**_
+Based on the **data gathered** by our research team, **Slack** or other similar realtime messaging apps feels like **forcing us to immediately give response** to the messages. It feels quite **annoying** for them. They prefer a **more asynchronous way** for doing knowledge sharing.
 
 ---
 
 ## 2. Architecture/High-level Design
 
+### 2.1. High-Level View
+
 ![Architecture](architecture-design.png)
+
+### 2.2. More Detailed View
+
+![Architecture-v2](architecture-design-v2.png)
 
 ### Component Responsibility
 
@@ -84,16 +97,28 @@ I think there are another choices like **GraphDB** that will be suitable for soc
 
 ### 4.1. `USER` Table in SQL
 
-| Field                 | Type           | Null | Default | Extra       |
-| --------------------- | -------------- | ---- | ------- | ----------- |
-| `id`                  | `INT`          | -    | -       | Primary Key |
-| `username`            | `VARCHAR(50)`  | -    | -       | Unique      |
-| `password`            | `VARCHAR(100)` | -    | -       |             |
-| `email`               | `VARCHAR(100)` | -    | -       | Unique      |
-| `name`                | `VARCHAR(100)` | -    | -       |             |
-| `profile_picture_url` | `VARCHAR(200)` | -    | -       |             |
+| Field                 | Type           | Null | Default | Extra              |
+| --------------------- | -------------- | ---- | ------- | ------------------ |
+| `id`                  | `INT`          | -    | -       | Primary Key        |
+| `username`            | `VARCHAR(50)`  | -    | -       | Unique             |
+| `password`            | `VARCHAR(100)` | -    | -       |                    |
+| `email`               | `VARCHAR(100)` | -    | -       | Unique             |
+| `name`                | `VARCHAR(100)` | -    | -       |                    |
+| `profile_picture_url` | `VARCHAR(200)` | -    | -       |                    |
+| `active`              | `INT`          | -    | 1       |                    |
+| `company_id`          | `INT`          | -    | -       | FK to `COMPANY.id` |
 
-### 4.2. `POST` Data Model NoSQL
+### 4.2. `COMPANY` Table in SQL
+
+| Field      | Type           | Null | Default | Extra       |
+| ---------- | -------------- | ---- | ------- | ----------- |
+| `id`       | `INT`          | -    | -       | Primary Key |
+| `name`     | `VARCHAR(50)`  | -    | -       | Unique      |
+| `email`    | `VARCHAR(100)` | -    | -       | Unique      |
+| `password` | `VARCHAR(100)` | -    | -       |             |
+| `active`   | `INT`          | -    | 1       |             |
+
+### 4.3. `POST` Data Model NoSQL
 
 ```typescript
 type Post = {
@@ -148,13 +173,9 @@ There are two ways to cache the users data, either on the **server** or on the *
   When the **number of users is huge** (like Twitter & Instagram users around the world), it is **more suitable** to cache the users data in the **server**. We can user **in-memory databases** like **Redis** or **Memcached** to cache the users data.
 
 - **Client**
-  Otherwise, when the **number of users is small** (_**30 employees** can be considered as **small** number_), caching the data on the **client** would be more suitable because it is **cheaper** than **allocating extra resource** on the server for caching (i.e. Redis).
+  Otherwise, when the **number of users is small**, caching the data on the **client** would be more suitable because it is **cheaper** than **allocating extra resource** on the server for caching (i.e. Redis).
 
-In this scenario, this app will be used internally within a company of **30 employees**. So, we will **cache the users data on the client**. Later, when the company is growing, more people are coming, we can move the caching mechanism to the server.
-
-However, it brings us to the 2nd question: "_**How can the browser know if the users data are updated?**_". One of approaches we may use is to set an **expiration time** for the client-side data caching. Maybe **1 hour** is enough to keep using the cached users data. After 1 hour, the client will re-fetch the users data from the server and store the result again on the client.
-
-Based on our design, **cookies** will be the suiteable option for caching users data in **1 hour**.
+In this scenario, this app will be used as an **SaaS** for companies. There might be quite **big number of users**. So it would be good if we do **caching** on the **server-side**. The idea is, whenever the client send an **HTTP Request** to the server to get the latest **posts** data, the server will retrieve the **users** data from **Redis**.
 
 ## 7. User Interfaces
 
@@ -170,19 +191,19 @@ For practicing purpose, we will develop this web app using simple tech stacks.
 
 - **Web**: NextJS 13 (Pages & API Routes)
 - **Zustand**: Client State Management
-- **Cookies**: Client-side Caching
 - **SQL DB**: Sqlite + Prisma ORM
 - **NoSQL DB**: Firebase Realtime DB
 - **Images Bucket**: Supabase Storage
+- **Redis**: Upstash
 
 ### 8.2. Functional Requirements
 
 1. **Browse feed** containing posts (_text-only_) created by the users.
 2. **Create** a new post.
 3. **Like/unlike** a post.
-4. When there is a new post created by other user:
-   1. The browser will be able to catch that event and display a **small popup** with a label **"New posts...** on the **top** of the feed.
-   2. When user clicks on that small popup, **the new posts will be displayed on the top of all previous posts** in the feed.
+4. When there is a **new post** created by other user:
+   1. The browser will be able to **catch that event** and display a **small popup** with a label **"New posts...** on the **top** of the feed.
+   2. When user **clicks** on that small popup, **the new posts will be displayed on the top of all previous posts** in the feed.
 5. When user **scroll down** the feed, at some point, the browser will **start re-fetching the next (later/older) posts** to be displayed **after the last post** available in the feed.
    1. When the re-fetching is **not finished yet**, a small **loading spinner** will be displayed **after the last post** in the feed.
 
