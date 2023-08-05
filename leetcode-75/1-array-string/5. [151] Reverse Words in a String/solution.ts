@@ -3,7 +3,7 @@ function reverseWords(s: string): string {
     return word.trim() != "";
   });
 
-  if (words.length === 1) return words[0];
+  if (words.length === 1) return words[0] || "";
 
   let index1 = 0;
   let index2 = words.length - 1;
@@ -18,5 +18,5 @@ function reverseWords(s: string): string {
     index2 -= 1;
   }
 
-  return words.join(" ");
+  return words.join(" ") || "";
 };
