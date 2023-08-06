@@ -1,5 +1,6 @@
 function isSubsequence(s: string, t: string): boolean {
   /**
+    spent 20 minutes
     If `s` is the subsequence of `t`:
     1. `s.length <= t.length`
     2. char in `s` is placed at the same order as `t`
