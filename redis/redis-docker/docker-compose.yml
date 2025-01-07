@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+  redis:
+    image: redis:latest
+    container_name: redis-server
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+    restart: unless-stopped
+    command: ["redis-server", "--appendonly", "yes", "--requirepass", "${REDIS_PASSWORD}"]
+
+  redis_insight:
+    image: redislabs/redisinsight:latest
+    container_name: redis_insight
+    ports:
+      - "8001:8001"
+    restart: unless-stopped
+    volumes:
+      - redis-insight-data:/db
+    depends_on:
+      - redis
+
+volumes:
+  redis-data:
+    driver: local
+  redis-insight-data:
+    driver: local
