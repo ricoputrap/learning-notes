@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   redis:
     image: redis:latest
@@ -13,7 +11,7 @@ services:
 
   redis_insight:
     image: redislabs/redisinsight:latest
-    container_name: redis_insight
+    container_name: redis-insight
     ports:
       - "8001:8001"
     restart: unless-stopped
